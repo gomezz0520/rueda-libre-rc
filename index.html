@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rueda Libre RC Medellín</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Carros a control remoto con envío a toda Colombia. Drift, Mini Drift y Land Cruiser 4x4. Pago contra entrega. Pide por WhatsApp.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@600;800;900&family=Barlow:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: pit-lane. Dark asphalt page, silver "showroom" panels for each car (matching the brushed-metal spec sheets), one hot racing orange for every buy action. */
+:root{
+  --asphalt:#0d0e10;
+  --asphalt-2:#16181c;
+  --line:#2a2d33;
+  --chrome:#e7e9ec;
+  --chrome-2:#c9cdd3;
+  --ink:#f4f5f7;
+  --ink-dim:#a3a8b1;
+  --ink-dark:#14161a;
+  --heat:#ff4b14;
+  --heat-2:#ff7a1a;
+  --wa:#25d366;
+  --gold:#d6a84a;
+  --studio:#f5f5f5;
+  --f-display:"Saira Condensed","Arial Narrow","Roboto Condensed",Impact,sans-serif;
+  --f-body:"Barlow","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:14px;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--asphalt);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--asphalt)}
+a{color:inherit}
+img{display:block;max-width:100%}
+h1,h2,h3{font-family:var(--f-display);font-weight:900;line-height:.95;letter-spacing:.005em;text-transform:uppercase;margin:0;text-wrap:balance}
+p{margin:0}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--heat-2)}
+:focus-visible{outline:3px solid var(--heat-2);outline-offset:3px}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:var(--f-display);font-weight:800;font-size:20px;letter-spacing:.04em;text-transform:uppercase;text-decoration:none;border:0;cursor:pointer;padding:14px 22px;border-radius:10px;transition:transform .15s,box-shadow .15s,background .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn-heat{background:linear-gradient(180deg,var(--heat-2),var(--heat));color:#fff;box-shadow:0 10px 30px -10px rgba(255,75,20,.7)}
+.btn-heat:hover{box-shadow:0 14px 34px -8px rgba(255,75,20,.85)}
+.btn-wa{background:var(--wa);color:#05230f;box-shadow:0 10px 30px -12px rgba(37,211,102,.7)}
+.btn-ghost{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.btn-ghost:hover{border-color:var(--ink-dim)}
+.btn svg{width:22px;height:22px;flex:none}
+
+/* promo strip */
+.strip{background:var(--heat);color:#fff;font-weight:600;font-size:14px;text-align:center}
+.strip .wrap{padding-block:8px;display:flex;gap:6px 18px;justify-content:center;flex-wrap:wrap}
+.strip b{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:rgba(13,14,16,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:12px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-mark{width:38px;height:38px;border-radius:9px;background:var(--heat);display:grid;place-items:center;transform:skewX(-10deg)}
+.logo-mark svg{width:26px;height:26px;transform:skewX(10deg)}
+.logo-text{font-family:var(--f-display);font-weight:900;font-size:26px;line-height:1;font-style:italic;letter-spacing:.02em}
+.logo-text small{display:block;font-family:var(--f-mono);font-style:normal;font-size:10px;letter-spacing:.2em;color:var(--ink-dim);font-weight:500;margin-top:2px}
+nav{display:flex;gap:22px;font-weight:600;font-size:15px}
+nav a{text-decoration:none;color:var(--ink-dim)}
+nav a:hover{color:var(--ink)}
+header .btn{font-size:16px;padding:10px 16px}
+@media (max-width:820px){nav{display:none}}
+@media (max-width:420px){header .btn span{display:none}header .btn{padding:10px 12px}.logo-text{font-size:21px}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line);background:
+  radial-gradient(900px 420px at 78% 40%,rgba(255,75,20,.22),transparent 60%),
+  linear-gradient(180deg,var(--asphalt-2),var(--asphalt))}
+.hero::after{content:"";position:absolute;inset:auto 0 0 0;height:14px;background:
+  repeating-conic-gradient(var(--ink) 0 25%,var(--asphalt) 0 50%) 0 0/14px 14px;opacity:.9}
+.hero .wrap{display:grid;grid-template-columns:1.05fr 1fr;gap:32px;align-items:center;padding-block:56px 72px}
+.hero h1{font-size:clamp(48px,8.4vw,104px);font-style:italic}
+.hero h1 em{font-style:italic;color:var(--heat);display:block}
+.hero-lead{font-size:clamp(17px,2vw,20px);color:var(--ink-dim);max-width:34ch;margin-top:18px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.chip{display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:600;padding:7px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.03)}
+.chip svg{width:16px;height:16px;color:var(--heat-2)}
+.hero-stage{position:relative;min-width:0}
+.hero-panel{background:linear-gradient(135deg,var(--chrome),var(--chrome-2));border-radius:20px;padding:14px;transform:rotate(-2deg);box-shadow:0 40px 80px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.1)}
+.hero-panel{position:relative}
+.hero-panel video{display:block;border-radius:12px;width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}
+.live{position:absolute;left:26px;top:24px;background:rgba(0,0,0,.6);color:#fff;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:6px}
+.hero-tag{position:absolute;right:-6px;top:-14px;background:var(--heat);color:#fff;font-family:var(--f-display);font-weight:900;font-size:22px;text-transform:uppercase;padding:8px 14px;border-radius:8px;transform:rotate(4deg);box-shadow:0 10px 20px -8px rgba(0,0,0,.6)}
+.hero-spec{position:absolute;left:-8px;bottom:-22px;background:var(--asphalt);border:1px solid var(--line);border-radius:12px;padding:10px 14px;display:flex;gap:16px}
+.hero-spec div{font-family:var(--f-mono);font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.08em}
+.hero-spec b{display:block;font-family:var(--f-display);font-size:24px;color:var(--ink);letter-spacing:0}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-block:36px 64px}.hero-stage{margin:10px 6px 20px}}
+
+/* sections */
+section{padding-block:72px}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:20px;flex-wrap:wrap;margin-bottom:34px}
+.sec-head h2{font-size:clamp(38px,5.6vw,64px);font-style:italic}
+.sec-head p{color:var(--ink-dim);max-width:46ch}
+
+/* product cards */
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+@media (max-width:980px){.grid{grid-template-columns:1fr;max-width:620px;margin:0 auto}}
+.card{background:var(--asphalt-2);border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
+.card-img{position:relative;background:var(--studio);aspect-ratio:4/3;max-width:100%;display:grid;place-items:center;overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:contain;transition:transform .5s}
+.play{position:absolute;right:12px;bottom:12px;display:inline-flex;align-items:center;gap:8px;background:var(--ink-dark);color:#fff;border:0;border-radius:999px;padding:9px 14px 9px 10px;font:700 13px var(--f-body);cursor:pointer;box-shadow:0 8px 20px -8px rgba(0,0,0,.6)}
+.play i{width:24px;height:24px;border-radius:50%;background:var(--heat);display:grid;place-items:center;font-style:normal;font-size:10px}
+.play:hover{background:#000}
+.card:hover .card-img img{transform:scale(1.04)}
+.badge{position:absolute;top:12px;left:12px;background:var(--ink-dark);color:#fff;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;padding:6px 9px;border-radius:6px;text-transform:uppercase}
+.badge-scale{left:auto;right:12px;background:var(--heat)}
+.card-body{padding:20px 20px 22px;display:flex;flex-direction:column;gap:14px;flex:1}
+.card h3{font-size:38px;font-style:italic}
+.ref{font-family:var(--f-mono);font-size:12px;color:var(--ink-dim);letter-spacing:.06em}
+.pitch{color:var(--ink-dim);font-size:15.5px}
+.specs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}
+.spec{background:var(--asphalt);border:1px solid var(--line);border-radius:10px;padding:9px 4px;text-align:center}
+.spec svg{width:20px;height:20px;color:var(--heat-2);margin:0 auto 4px}
+.spec b{display:block;font-family:var(--f-display);font-size:17px;line-height:1.05}
+.spec span{display:block;font-size:10.5px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.price-row{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:6px;border-top:1px dashed var(--line)}
+.price{font-family:var(--f-display);font-weight:900;font-size:36px;font-variant-numeric:tabular-nums}
+.price.ask{font-size:22px;color:var(--ink-dim)}
+.price-old{color:var(--ink-dim);text-decoration:line-through;font-size:16px}
+.stock{font-size:13px;font-weight:600;color:var(--heat-2);flex-basis:100%}
+.off{background:var(--heat);color:#fff;font-family:var(--f-mono);font-size:12px;font-weight:700;padding:4px 8px;border-radius:6px}
+.card-actions{display:grid;grid-template-columns:1fr;gap:8px}
+.card-actions .btn{width:100%}
+.link-btn{background:none;border:0;color:var(--ink-dim);font:600 14px var(--f-body);cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:4px}
+.link-btn:hover{color:var(--ink)}
+
+/* details drawer */
+details.more{border-top:1px solid var(--line);padding-top:10px}
+details.more summary{cursor:pointer;font-weight:700;font-size:14px;color:var(--ink-dim);list-style:none;display:flex;justify-content:space-between}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::after{content:"+";font-family:var(--f-mono);color:var(--heat-2)}
+details.more[open] summary::after{content:"−"}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin-top:12px;font-size:14px}
+.kv dt{color:var(--ink-dim)}
+.kv dd{margin:0;font-weight:600;text-align:right}
+.kv-list{margin:12px 0 0;padding-left:18px;font-size:14px;color:var(--ink-dim)}
+.kv-list b{color:var(--ink)}
+.ficha{margin-top:12px;border-radius:10px;cursor:zoom-in;border:1px solid var(--line)}
+
+/* compare */
+.compare-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:16px}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:15px}
+th,td{padding:14px 16px;text-align:left;border-bottom:1px solid var(--line)}
+thead th{font-family:var(--f-display);font-size:24px;font-style:italic;text-transform:uppercase;background:var(--asphalt-2)}
+thead th:first-child{font-family:var(--f-mono);font-size:11px;font-style:normal;color:var(--ink-dim);letter-spacing:.1em}
+tbody th{font-weight:600;color:var(--ink-dim);white-space:nowrap}
+td{font-variant-numeric:tabular-nums;font-weight:600}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
+.yes{color:var(--wa)}
+.no{color:var(--ink-dim);font-weight:400}
+
+/* reels */
+.reels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:860px){.reels{grid-template-columns:1fr;max-width:620px;margin:0 auto}}
+.reel{position:relative;border-radius:16px;overflow:hidden;border:1px solid var(--line);background:#000;cursor:pointer;aspect-ratio:16/9;max-width:100%;padding:0;color:var(--ink);font:inherit;text-align:left}
+.reel video{width:100%;height:100%;object-fit:cover;display:block}
+.reel span{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.8));display:flex;justify-content:space-between;align-items:end;gap:10px}
+.reel b{font-family:var(--f-display);font-size:26px;font-style:italic;text-transform:uppercase;line-height:1}
+.reel small{font-size:12px;font-weight:700;background:var(--heat);color:#fff;padding:5px 9px;border-radius:999px;white-space:nowrap}
+
+/* social */
+.social{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.social a{display:inline-flex;align-items:center;gap:8px;text-decoration:none;font-weight:700;color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:8px 14px}
+.social a:hover{border-color:var(--heat-2)}
+.social svg{width:18px;height:18px}
+
+/* who-for */
+.who{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:860px){.who{grid-template-columns:1fr}}
+.who-item{border-left:4px solid var(--heat);padding:6px 0 6px 18px}
+.who-item h3{font-size:30px;font-style:italic;margin-bottom:8px}
+.who-item p{color:var(--ink-dim)}
+.who-item a{color:var(--heat-2);font-weight:700}
+
+/* xmas band */
+.xmas{background:linear-gradient(100deg,#1b0d07,#2a0f05 50%,#1b0d07);border-block:1px solid #4a1d0b}
+.xmas .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:30px;align-items:center}
+@media (max-width:860px){.xmas .wrap{grid-template-columns:1fr}}
+.xmas h2{font-size:clamp(36px,5vw,58px);font-style:italic}
+.xmas h2 em{color:var(--heat-2);font-style:italic}
+.xmas p{color:#e3c9bd;margin-top:14px;max-width:48ch}
+.countdown{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.cd{background:rgba(0,0,0,.35);border:1px solid #4a1d0b;border-radius:12px;padding:14px 6px;text-align:center}
+.cd b{display:block;font-family:var(--f-display);font-size:clamp(34px,5vw,52px);font-weight:900;font-variant-numeric:tabular-nums;line-height:1}
+.cd span{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#d9a690}
+.cd-label{grid-column:1/-1;font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:#d9a690}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;counter-reset:s}
+@media (max-width:860px){.steps{grid-template-columns:1fr}}
+.step{background:var(--asphalt-2);border:1px solid var(--line);border-radius:16px;padding:22px;position:relative;overflow:hidden}
+.step::before{counter-increment:s;content:counter(s);position:absolute;right:10px;top:-14px;font-family:var(--f-display);font-weight:900;font-style:italic;font-size:110px;color:rgba(255,255,255,.05);line-height:1}
+.step h3{font-size:28px;font-style:italic;margin-bottom:8px}
+.step p{color:var(--ink-dim)}
+.pay{display:flex;flex-wrap:wrap;gap:10px;margin-top:26px}
+.pay .chip{font-size:15px;padding:10px 14px}
+
+/* faq */
+.faq{display:grid;gap:10px;max-width:820px}
+.faq details{background:var(--asphalt-2);border:1px solid var(--line);border-radius:12px;padding:16px 18px}
+.faq summary{cursor:pointer;font-weight:700;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:12px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:var(--f-mono);color:var(--heat-2);flex:none}
+.faq details[open] summary::after{content:"−"}
+.faq p{color:var(--ink-dim);margin-top:10px}
+
+/* final cta */
+.final{text-align:center;background:radial-gradient(700px 300px at 50% 0%,rgba(255,75,20,.25),transparent 70%)}
+.final h2{font-size:clamp(42px,7vw,84px);font-style:italic}
+.final p{color:var(--ink-dim);margin:16px auto 28px;max-width:46ch}
+.final .btn{font-size:22px;padding:18px 28px}
+
+footer{border-top:1px solid var(--line);padding-block:36px 110px;color:var(--ink-dim);font-size:14px}
+footer .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:28px}
+@media (max-width:760px){footer .wrap{grid-template-columns:1fr}}
+.advisors{display:grid;gap:8px}
+.advisor{display:flex;justify-content:space-between;gap:12px;align-items:center;background:var(--asphalt-2);border:1px solid var(--line);border-radius:10px;padding:10px 14px;text-decoration:none;color:var(--ink)}
+.advisor:hover{border-color:var(--wa)}
+.advisor span{font-family:var(--f-mono);font-size:13px;color:var(--ink-dim);user-select:all}
+
+/* floating WA */
+.fab{position:fixed;right:calc(18px + env(safe-area-inset-right,0px));bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:40;width:62px;height:62px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 12px 30px -8px rgba(0,0,0,.7);animation:pulse 2.4s infinite;border:0;cursor:pointer}
+.fab svg{width:34px;height:34px;color:#fff}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.55)}70%{box-shadow:0 0 0 16px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+
+/* order sheet */
+.sheet-bg{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:70;display:grid;place-items:end center;padding-top:env(safe-area-inset-top,0px)}
+@media (min-width:700px){.sheet-bg{place-items:center}}
+.sheet{width:min(560px,100%);max-height:92vh;overflow:auto;background:var(--asphalt-2);border:1px solid var(--line);border-radius:20px 20px 0 0;padding:22px max(18px,env(safe-area-inset-left,0px)) calc(22px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-right,0px))}
+@media (min-width:700px){.sheet{border-radius:20px}}
+.sheet-top{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:16px}
+.sheet h3{font-size:34px;font-style:italic}
+.x{background:var(--asphalt);border:1px solid var(--line);color:var(--ink);width:40px;height:40px;border-radius:10px;font-size:22px;cursor:pointer;flex:none}
+.sel{display:flex;gap:12px;align-items:center;background:var(--asphalt);border:1px solid var(--line);border-radius:12px;padding:10px;margin-bottom:16px}
+.sel img{width:96px;height:72px;object-fit:contain;border-radius:8px;background:var(--studio)}
+.sel b{font-family:var(--f-display);font-size:24px;text-transform:uppercase;font-style:italic;display:block;line-height:1}
+.sel span{font-size:14px;color:var(--ink-dim)}
+form{display:grid;gap:12px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:440px){.row2{grid-template-columns:1fr}}
+label{display:grid;gap:5px;font-size:13px;font-weight:600;color:var(--ink-dim)}
+input,select,textarea{font:500 16px var(--f-body);color:var(--ink);background:var(--asphalt);border:1px solid var(--line);border-radius:10px;padding:12px;width:100%}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--heat-2);border-color:transparent}
+.qty{display:flex;align-items:center;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--asphalt)}
+.qty button{background:none;border:0;color:var(--ink);font-size:22px;width:46px;height:46px;cursor:pointer}
+.qty input{border:0;text-align:center;border-radius:0;padding:0;height:46px;font-family:var(--f-mono);font-weight:700}
+.total{display:flex;justify-content:space-between;align-items:baseline;padding:12px 0 2px;border-top:1px dashed var(--line);font-weight:600}
+.total b{font-family:var(--f-display);font-size:30px;font-variant-numeric:tabular-nums}
+.note{font-size:13px;color:var(--ink-dim)}
+.err{color:#ff8a6a;font-size:13px;font-weight:600}
+
+/* lightbox */
+.lb{position:fixed;inset:0;z-index:80;background:rgba(0,0,0,.9);display:grid;place-items:center;padding:16px;cursor:zoom-out}
+.lb img,.lb video{max-height:88vh;max-width:100%;border-radius:10px}
+.lb video{width:min(1000px,100%);background:#000}
+.lb-x{position:absolute;top:calc(14px + env(safe-area-inset-top,0px));right:calc(14px + env(safe-area-inset-right,0px));background:var(--asphalt-2);border:1px solid var(--line);color:var(--ink);width:44px;height:44px;border-radius:10px;font-size:24px;cursor:pointer}
+</style>
+</head>
+<body>
+
+<div class="strip"><div class="wrap">
+  <span>🎄 Precios de temporada: hasta $30.000 de descuento · Envío a toda Colombia</span>
+  <span>Faltan <b id="strip-days">--</b> días para Navidad</span>
+</div></div>
+
+<header><div class="wrap">
+  <a class="logo" href="#top" aria-label="Rueda Libre RC, inicio">
+    <span class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M3 15l2-5 4-2h6l4 3 2 4"/><circle cx="7.5" cy="16.5" r="2"/><circle cx="17" cy="16.5" r="2"/></svg></span>
+    <span class="logo-text">RUEDA LIBRE RC<small>MEDELLÍN · COLOMBIA</small></span>
+  </a>
+  <nav><a href="#modelos">Modelos</a><a href="#comparar">Comparar</a><a href="#comprar">Cómo comprar</a><a href="#faq">Preguntas</a></nav>
+  <a class="btn btn-wa" href="#" data-wa="general"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-wa"/></svg><span>Escríbenos</span></a>
+</div></header>
+
+<main id="top">
+<!-- HERO -->
+<div class="hero"><div class="wrap">
+  <div>
+    <p class="eyebrow">Carros a control remoto · Escala real · Metal</p>
+    <h1>El regalo que nadie va a soltar <em>esta Navidad</em></h1>
+    <p class="hero-lead">Carros de drift y 4x4 con luces, batería recargable y acabados de colección. Para niños que quieren velocidad y adultos que quieren detalle.</p>
+    <div class="hero-cta">
+      <a class="btn btn-heat" href="#modelos">Ver los 3 modelos</a>
+      <a class="btn btn-ghost" href="#" data-wa="general"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-wa"/></svg>Preguntar por WhatsApp</a>
+    </div>
+    <div class="chips">
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-truck"/></svg>Envíos a toda Colombia</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-cash"/></svg>Pago contra entrega</span>
+      <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-bolt"/></svg>Batería recargable incluida</span>
+    </div>
+  </div>
+  <div class="hero-stage">
+    <div class="hero-panel"><video src="video/drift.mp4" poster="video/drift.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Video del carro Drift S814 andando"></video><span class="live">● Grabado en Medellín</span></div>
+    <div class="hero-tag">¡Derrapa!</div>
+    <div class="hero-spec">
+      <div><b>4x4</b>Tracción</div>
+      <div><b>1:20</b>Escala</div>
+      <div><b>LED</b>Luces</div>
+    </div>
+  </div>
+</div></div>
+
+<!-- MODELS -->
+<section id="modelos"><div class="wrap">
+  <div class="sec-head">
+    <div><p class="eyebrow">Escoge tu máquina</p><h2>Los modelos</h2></div>
+    <p>Los tres traen batería recargable, luces y tracción 4x4. Toca <b>Pedir</b>, llena tus datos y tu pedido llega completo a nuestro WhatsApp.</p>
+  </div>
+  <div class="grid" id="grid"></div>
+</div></section>
+
+<!-- ACTION -->
+<section id="accion" style="padding-top:0"><div class="wrap">
+  <div class="sec-head">
+    <div><p class="eyebrow">Videos reales, sin efectos</p><h2>Míralos andar</h2></div>
+    <p>Los grabamos en las calles y parques de Medellín. Así se ven y así se manejan.</p>
+  </div>
+  <div class="reels" id="reels"></div>
+</div></section>
+
+<!-- XMAS -->
+<section class="xmas"><div class="wrap">
+  <div>
+    <p class="eyebrow">Navidad y Año Nuevo</p>
+    <h2>Pide hoy y llega <em>antes del 24</em></h2>
+    <p>Los envíos a otras ciudades tardan unos días y en diciembre las transportadoras se llenan. Asegura el regalo con tiempo y págalo cuando lo recibas.</p>
+    <div class="hero-cta"><a class="btn btn-heat" href="#modelos">Elegir regalo</a></div>
+  </div>
+  <div class="countdown" aria-label="Cuenta regresiva para Navidad">
+    <div class="cd-label">Faltan para Nochebuena</div>
+    <div class="cd"><b id="cd-d">--</b><span>Días</span></div>
+    <div class="cd"><b id="cd-h">--</b><span>Horas</span></div>
+    <div class="cd"><b id="cd-m">--</b><span>Min</span></div>
+    <div class="cd"><b id="cd-s">--</b><span>Seg</span></div>
+  </div>
+</div></section>
+
+<!-- COMPARE -->
+<section id="comparar"><div class="wrap">
+  <div class="sec-head">
+    <div><p class="eyebrow">Ficha contra ficha</p><h2>¿Cuál te llevas?</h2></div>
+    <p>Todos los datos vienen de la ficha técnica de cada referencia.</p>
+  </div>
+  <div class="compare-wrap"><table id="cmp"></table></div>
+
+  <div class="who" style="margin-top:44px">
+    <div class="who-item"><h3>Para el que quiere derrapar</h3><p>El <a href="#m-drift">Drift S814</a> trae modo derrape y viene con conos, barriles y llantas extra para armar la pista en la sala. Es el más vistoso para jugar en piso liso.</p></div>
+    <div class="who-item"><h3>Para jugar desde el celular</h3><p>El <a href="#m-mini">Mini Drift</a> se maneja con la app móvil. Es pequeño (1:64), se carga en 30 min y cabe en cualquier lado.</p></div>
+    <div class="who-item"><h3>Para el aficionado</h3><p>La <a href="#m-land">Land Cruiser MN82-PRO</a> es la más grande (1:16): 7.4 V, chasis reforzado, 2 velocidades y 30 m de alcance.</p></div>
+  </div>
+</div></section>
+
+<!-- HOW TO BUY -->
+<section id="comprar" style="background:var(--asphalt-2);border-block:1px solid var(--line)"><div class="wrap">
+  <div class="sec-head"><div><p class="eyebrow">Sin vueltas</p><h2>Cómo comprar</h2></div></div>
+  <div class="steps">
+    <div class="step"><h3>Elige tu carro</h3><p>Toca <b>Pedir por WhatsApp</b> en el modelo que quieres y escoge la cantidad.</p></div>
+    <div class="step"><h3>Pon tus datos</h3><p>Nombre, ciudad, dirección y cómo vas a pagar. Así no tenemos que preguntarte nada.</p></div>
+    <div class="step"><h3>Envía y listo</h3><p>Se abre WhatsApp con el pedido escrito. Lo envías, te confirmamos y despachamos.</p></div>
+  </div>
+  <div class="pay">
+    <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-cash"/></svg>Contra entrega</span>
+    <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-bank"/></svg>Transferencia Bancolombia</span>
+    <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-phone"/></svg>Nequi</span>
+    <span class="chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-truck"/></svg>Envíos desde Medellín a todo el país</span>
+  </div>
+</div></section>
+
+<!-- FAQ -->
+<section id="faq"><div class="wrap">
+  <div class="sec-head"><div><p class="eyebrow">Antes de pedir</p><h2>Preguntas frecuentes</h2></div></div>
+  <div class="faq">
+    <details><summary>¿Hacen envíos a mi ciudad?</summary><p>Sí. Despachamos desde Medellín a toda Colombia. Escríbenos tu ciudad y te confirmamos el valor y el tiempo de entrega.</p></details>
+    <details><summary>¿Puedo pagar cuando me llegue?</summary><p>Sí, tenemos pago contra entrega. También puedes pagar por transferencia Bancolombia o Nequi.</p></details>
+    <details><summary>¿Qué pilas necesito?</summary><p>El carro trae su batería recargable incluida. El control usa pilas que no vienen incluidas: 2 AA para el Drift S814 y la Land Cruiser, 2 AAA para el Mini Drift.</p></details>
+    <details><summary>¿Cuánto dura la batería?</summary><p>Unos 30 minutos de juego por carga. El Mini Drift se carga en unos 30 minutos y la Land Cruiser en aproximadamente 1 hora.</p></details>
+    <details><summary>¿Son para niños o para adultos?</summary><p>Para los dos. El Mini Drift y el Drift son fáciles de manejar para los niños. La Land Cruiser, por su tamaño, chasis reforzado y acabados, le gusta mucho al aficionado adulto.</p></details>
+    <details><summary>¿El Mini Drift funciona con cualquier celular?</summary><p>Se controla desde una app móvil. Escríbenos y te confirmamos la app y la compatibilidad con tu teléfono antes de comprar.</p></details>
+  </div>
+</div></section>
+
+<!-- FINAL -->
+<section class="final"><div class="wrap">
+  <h2>Arranca hoy</h2>
+  <p>Escríbenos y te ayudamos a escoger el regalo. Respondemos rápido.</p>
+  <a class="btn btn-wa" href="#" data-wa="general"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-wa"/></svg>Hablar por WhatsApp</a>
+  <p style="margin:26px auto 0">Mira más videos en nuestras redes</p>
+  <div style="display:flex;justify-content:center"><div class="social">
+      <a href="https://www.instagram.com/rueda_libre_rc/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-ig"/></svg>@rueda_libre_rc</a>
+      <a href="https://www.tiktok.com/@rueda_libre_rc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-tt"/></svg>@rueda_libre_rc</a>
+    </div></div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div>
+    <span class="logo-text" style="font-size:30px">RUEDA LIBRE RC</span>
+    <p style="margin-top:10px;max-width:40ch">Carros a control remoto en Medellín. Envíos a toda Colombia. Pago contra entrega, transferencia Bancolombia o Nequi.</p>
+<div class="social">
+      <a href="https://www.instagram.com/rueda_libre_rc/" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><use href="#i-ig"/></svg>@rueda_libre_rc</a>
+      <a href="https://www.tiktok.com/@rueda_libre_rc" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-tt"/></svg>@rueda_libre_rc</a>
+    </div>
+    <p style="margin-top:14px">© <span id="yr"></span> Rueda Libre RC</p>
+  </div>
+  <div>
+    <p class="eyebrow" style="margin-bottom:10px">Asesores por WhatsApp</p>
+    <div class="advisors" id="advisors"></div>
+  </div>
+</div></footer>
+
+<button class="fab" type="button" aria-label="Escribir por WhatsApp" data-wa="general"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-wa"/></svg></button>
+
+<!-- ORDER SHEET -->
+<div class="sheet-bg" id="sheet" hidden>
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title">
+    <div class="sheet-top">
+      <div><p class="eyebrow">Tu pedido</p><h3 id="sheet-title">Pedir por WhatsApp</h3></div>
+      <button class="x" type="button" id="sheet-x" aria-label="Cerrar">×</button>
+    </div>
+    <div class="sel"><img id="o-img" alt=""><div><b id="o-name"></b><span id="o-ref"></span></div></div>
+    <form id="order" novalidate>
+      <div class="row2">
+        <label for="o-qty">Cantidad
+          <div class="qty"><button type="button" id="q-minus" aria-label="Menos">−</button><input id="o-qty" type="number" min="1" max="20" value="1" inputmode="numeric"><button type="button" id="q-plus" aria-label="Más">+</button></div>
+        </label>
+        <label for="o-pay">Forma de pago
+          <select id="o-pay"><option>Contra entrega</option><option>Transferencia Bancolombia</option><option>Nequi</option></select>
+        </label>
+      </div>
+      <label for="o-name-in">Nombre completo<input id="o-name-in" autocomplete="name" placeholder="Ej: Laura Restrepo"></label>
+      <div class="row2">
+        <label for="o-city">Ciudad<input id="o-city" autocomplete="address-level2" placeholder="Ej: Medellín"></label>
+        <label for="o-hood">Barrio<input id="o-hood" placeholder="Ej: Laureles"></label>
+      </div>
+      <label for="o-addr">Dirección de entrega<input id="o-addr" autocomplete="street-address" placeholder="Ej: Calle 10 # 43-20, apto 301"></label>
+      <label for="o-note">Nota (opcional)<input id="o-note" placeholder="Ej: Es para regalo, entregar en la tarde"></label>
+      <div class="total"><span>Total productos</span><b id="o-total">—</b></div>
+      <p class="note" id="o-ship">El valor del envío te lo confirmamos por WhatsApp.</p>
+      <p class="err" id="o-err" hidden>Completa nombre, ciudad y dirección para enviar el pedido.</p>
+      <button class="btn btn-wa" type="submit"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-wa"/></svg>Enviar pedido por WhatsApp</button>
+      <p class="note" style="text-align:center">Se abre WhatsApp con tu pedido ya escrito. Solo tienes que tocar enviar.</p>
+    </form>
+  </div>
+</div>
+
+<div class="lb" id="lb" hidden><button class="lb-x" type="button" aria-label="Cerrar">×</button><img id="lb-img" alt=""><video id="lb-vid" controls playsinline hidden></video></div>
+
+<!-- ICONS -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91A9.86 9.86 0 0 0 12.04 2zm5.8 14.03c-.24.68-1.42 1.3-1.95 1.35-.5.05-1.13.07-1.82-.11a16.6 16.6 0 0 1-1.65-.61c-2.9-1.25-4.79-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3s.75-2.13 1.02-2.42a1.07 1.07 0 0 1 .78-.36h.56c.18 0 .42-.07.66.5.24.58.82 2 .89 2.15.07.14.12.31.02.5-.1.19-.14.31-.29.48l-.43.5c-.14.14-.29.3-.12.59.17.29.75 1.24 1.61 2 1.11.99 2.04 1.3 2.33 1.44.29.14.46.12.63-.07.17-.19.72-.84.92-1.13.19-.29.38-.24.65-.14.26.1 1.68.79 1.97.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z"/></symbol>
+  <symbol id="i-truck" viewBox="0 0 24 24"><path d="M3 6h11v9H3zM14 9h4l3 3v3h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></symbol>
+  <symbol id="i-cash" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></symbol>
+  <symbol id="i-bolt" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7z"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 24 24"><path d="M3 10l9-6 9 6M5 10v8M10 10v8M14 10v8M19 10v8M3 20h18"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></symbol>
+  <symbol id="i-light" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V16h8v-1.3A7 7 0 0 0 12 2z"/></symbol>
+  <symbol id="i-4x4" viewBox="0 0 24 24"><rect x="3" y="3" width="4" height="6" rx="1"/><rect x="17" y="3" width="4" height="6" rx="1"/><rect x="3" y="15" width="4" height="6" rx="1"/><rect x="17" y="15" width="4" height="6" rx="1"/><path d="M7 6h10M7 18h10M12 6v12"/></symbol>
+  <symbol id="i-range" viewBox="0 0 24 24"><path d="M5 12.5a10 10 0 0 1 14 0M8 15.5a5.5 5.5 0 0 1 8 0"/><circle cx="12" cy="19" r="1.3"/></symbol>
+  <symbol id="i-scale" viewBox="0 0 24 24"><path d="M3 17L17 3l4 4L7 21z"/><path d="M7 13l2 2M10 10l2 2M13 7l2 2"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol>
+  <symbol id="i-ig" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".8" fill="currentColor"/></symbol>
+  <symbol id="i-tt" viewBox="0 0 24 24"><path d="M16.6 2h-3.3v13.2a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9a6.3 6.3 0 1 0 5.3 6.2V8.6a7.9 7.9 0 0 0 4.4 1.4V6.7a4.5 4.5 0 0 1-4.4-4.7z"/></symbol>
+  <symbol id="i-flag" viewBox="0 0 24 24"><path d="M5 21V4h13l-2 4 2 4H5"/></symbol>
+</svg>
+
+<script>
+/* ============ CONFIGURACIÓN: edita aquí ============
+   precio: número en pesos (ej. 189900). Si es null, se muestra "Pregunta el precio".
+   precioAntes: precio tachado opcional (ej. 229900) o null.
+   envio: texto que se muestra en el pedido.
+*/
+const CONFIG = {
+  marca: "Rueda Libre RC",
+  envio: "El valor del envío te lo confirmamos por WhatsApp.",
+  navidad: "2026-12-24T00:00:00-05:00",
+  asesores: [
+    { nombre: "Andrés Gómez",    numero: "573218294282" },
+    { nombre: "Sebastián Gómez", numero: "573207312177" },
+    { nombre: "Wilson Gómez",    numero: "573122041574" }
+  ]
+};
+
+const MODELOS = [
+  {
+    id:"drift", anchor:"m-drift", nombre:"Drift", ref:"S814", escala:"1:20",
+    img:"img/drift-s814-foto.jpg", video:"video/drift.mp4", poster:"video/drift.jpg", ficha:"img/drift-s814-ficha.jpg",
+    precio:130000, precioAntes:160000, stock:"Pocas unidades para diciembre",
+    pitch:"Estilo deportivo clásico con alerón, faros LED y llantas para derrapar. Viene con conos, barriles y llantas extra para armar tu propia pista.",
+    specs:[["i-light","LED","Luces"],["i-4x4","4x4","Tracción"],["i-flag","Drift","Derrape"],["i-range","15 m","Alcance"]],
+    tabla:{ bateria:"3.7 V recargable", duracion:"—", carga:"—", alcance:"15 m", control:"2 pilas AA", material:"Metal y plástico", app:false, drift:true, vel:false },
+    detalle:[["Escala","1:20"],["Material","Metal y plástico"],["Batería del carro","3.7 V recargable (incluida)"],["Control","2 pilas AA (no incluidas)"],["Tracción","4x4"],["Alcance","15 metros"]],
+    extras:["<b>Modo derrape</b> para hacer drift en piso liso","<b>Faros LED</b> funcionales","<b>Incluye kit de pista:</b> conos, barriles y llantas extra de drift"]
+  },
+  {
+    id:"mini", anchor:"m-mini", nombre:"Mini Drift", ref:"CXL800-302A", escala:"1:64",
+    img:"img/minidrift-cxl800-foto.jpg", video:"video/minidrift.mp4", poster:"video/minidrift.jpg", ficha:"img/minidrift-cxl800-ficha.jpg",
+    precio:100000, precioAntes:125000, stock:"Ideal para regalo de niño",
+    pitch:"Camioneta de lujo en miniatura que se maneja desde el celular. Carga rápida y cabe en la palma de la mano.",
+    specs:[["i-phone","App","Control"],["i-4x4","4x4","Tracción"],["i-clock","30 min","Duración"],["i-range","15 m","Alcance"]],
+    tabla:{ bateria:"3.7 V recargable", duracion:"≈ 30 min", carga:"≈ 30 min", alcance:"15 m", control:"2 pilas AAA", material:"Metal", app:true, drift:true, vel:false },
+    detalle:[["Escala","1:64"],["Material","Metal"],["Batería del carro","3.7 V recargable (incluida)"],["Duración","Aprox. 30 minutos"],["Tiempo de carga","Aprox. 30 minutos"],["Control","2 pilas AAA (no incluidas)"],["Tracción","4x4 4WD"],["Alcance","15 metros"]],
+    extras:["<b>Control por app móvil</b> además del control remoto","<b>Luces</b> funcionales"]
+  },
+  {
+    id:"land", anchor:"m-land", nombre:"Land Cruiser", ref:"MN82-PRO", escala:"1:16",
+    img:"img/landcruiser-mn82-foto.jpg", video:"video/landcruiser.mp4", poster:"video/landcruiser.jpg", ficha:"img/landcruiser-mn82-ficha.jpg",
+    precio:330000, precioAntes:360000, stock:"El más pedido por adultos",
+    pitch:"Pickup todoterreno con chasis reforzado, snorkel y llantas de tacos. Sube, baja y se ve como la real.",
+    specs:[["i-bolt","7.4 V","Batería"],["i-4x4","4x4","Tracción"],["i-flag","2 vel.","Velocidad"],["i-range","30 m","Alcance"]],
+    tabla:{ bateria:"7.4 V recargable", duracion:"≈ 30 min", carga:"≈ 1 hora", alcance:"30 m", control:"2 pilas AA", material:"Metal y plástico", app:false, drift:false, vel:true },
+    detalle:[["Escala","1:16"],["Material","Metal y plástico"],["Batería del carro","7.4 V recargable (incluida)"],["Duración","Aprox. 30 minutos"],["Tiempo de carga","Aprox. 1 hora"],["Control","2 pilas AA (no incluidas)"],["Tracción","4x4 4WD"],["Alcance","30 metros"]],
+    extras:["<b>Luces LED:</b> faros delanteros para manejar de noche","<b>Chasis reforzado</b> para terrenos difíciles","<b>Acabados premium</b> en pintura y detalles","<b>Control de velocidad:</b> dos modos para un manejo suave","Accesorios de carrocería incluidos"]
+  }
+];
+
+/* ============ helpers ============ */
+const $ = s => document.querySelector(s);
+const cop = n => "$" + Math.round(n).toLocaleString("es-CO");
+const ico = id => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#${id}"/></svg>`;
+// Reparte los mensajes entre los asesores
+function asesor(){ const a = CONFIG.asesores; return a[Math.floor(Math.random()*a.length)]; }
+function waLink(text, num){ return `https://wa.me/${num || asesor().numero}?text=${encodeURIComponent(text)}`; }
+
+/* ============ render cards ============ */
+$("#grid").innerHTML = MODELOS.map(m => `
+  <article class="card" id="${m.anchor}">
+    <div class="card-img">
+      <img src="${m.img}" alt="Carro ${m.nombre} REF. ${m.ref}" loading="lazy">
+      <span class="badge">REF. ${m.ref}</span>${m.extras.some(e=>e.includes('kit de pista'))?'<span class="badge" style="top:44px;background:var(--heat)">+ Kit de pista gratis</span>':''}
+      <span class="badge badge-scale">Escala ${m.escala}</span>
+      <button class="play" type="button" data-video="${m.id}"><i>▶</i>Verlo andar</button>
+    </div>
+    <div class="card-body">
+      <div><h3>${m.nombre}</h3><p class="ref">CARRO A CONTROL REMOTO · ${m.escala}</p></div>
+      <p class="pitch">${m.pitch}</p>
+      <div class="specs">${m.specs.map(s=>`<div class="spec">${ico(s[0])}<b>${s[1]}</b><span>${s[2]}</span></div>`).join("")}</div>
+      <details class="more"><summary>Ficha técnica completa</summary>
+        <dl class="kv">${m.detalle.map(d=>`<dt>${d[0]}</dt><dd>${d[1]}</dd>`).join("")}</dl>
+        <ul class="kv-list">${m.extras.map(e=>`<li>${e}</li>`).join("")}</ul>
+        <img class="ficha" src="${m.ficha}" alt="Ficha técnica ${m.nombre} REF. ${m.ref}" loading="lazy" data-zoom>
+      </details>
+      <div class="price-row">
+        ${m.precio ? `<span class="price">${cop(m.precio)}</span>${m.precioAntes?`<span class="price-old">${cop(m.precioAntes)}</span><span class="off">Ahorras ${cop(m.precioAntes-m.precio)}</span>`:""}` : `<span class="price ask">Pregunta el precio</span>`}
+        <span class="stock">${m.stock}</span>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn-heat" type="button" data-order="${m.id}"><svg viewBox="0 0 24 24" fill="currentColor"><use href="#i-wa"/></svg>Pedir por WhatsApp</button>
+        <a class="link-btn" href="#" data-ask="${m.id}" style="text-align:center">Tengo una pregunta sobre este carro</a>
+      </div>
+    </div>
+  </article>`).join("");
+
+/* ============ reels ============ */
+$("#reels").innerHTML = MODELOS.map(m=>`<button class="reel" type="button" data-video="${m.id}" aria-label="Ver video del ${m.nombre}">
+  <video src="${m.video}" poster="${m.poster}" muted loop playsinline preload="none"></video>
+  <span><b>${m.nombre}</b><small>▶ Ver con sonido</small></span></button>`).join("");
+// reproducir en silencio cuando el video está en pantalla
+if ("IntersectionObserver" in window){
+  const io = new IntersectionObserver(es=>es.forEach(en=>{ const v = en.target; en.isIntersecting ? v.play().catch(()=>{}) : v.pause(); }),{threshold:.4});
+  document.querySelectorAll(".reel video").forEach(v=>io.observe(v));
+}
+
+/* ============ comparison table ============ */
+const yes = v => v ? `<span class="yes">Sí</span>` : `<span class="no">No</span>`;
+const rows = [
+  ["Escala", m=>m.escala],["Material", m=>m.tabla.material],["Batería del carro", m=>m.tabla.bateria],
+  ["Duración por carga", m=>m.tabla.duracion],["Tiempo de carga", m=>m.tabla.carga],["Alcance", m=>m.tabla.alcance],
+  ["Pilas del control", m=>m.tabla.control],["Tracción 4x4", ()=>yes(true)],["Luces", ()=>yes(true)],
+  ["Derrape / drift", m=>yes(m.tabla.drift)],["Control por app", m=>yes(m.tabla.app)],["Control de velocidad", m=>yes(m.tabla.vel)],
+  ["Precio", m=>m.precio?cop(m.precio):`<span class="no">Por WhatsApp</span>`]
+];
+$("#cmp").innerHTML = `<thead><tr><th>Modelo</th>${MODELOS.map(m=>`<th>${m.nombre}</th>`).join("")}</tr></thead>
+  <tbody>${rows.map(r=>`<tr><th>${r[0]}</th>${MODELOS.map(m=>`<td>${r[1](m)}</td>`).join("")}</tr>`).join("")}</tbody>`;
+
+/* ============ advisors ============ */
+$("#advisors").innerHTML = CONFIG.asesores.map(a=>{
+  const n = a.numero.replace(/^57(\d{3})(\d{3})(\d{4})$/,"+57 $1 $2 $3");
+  return `<a class="advisor" target="_blank" rel="noopener" href="${waLink("Hola, vi la página de "+CONFIG.marca+" y quiero información sobre los carros a control remoto.", a.numero)}">${a.nombre}<span>${n}</span></a>`;
+}).join("");
+
+/* ============ generic WA buttons (real links) ============ */
+const GEN = `Hola, vi la página de ${CONFIG.marca} y quiero información sobre los carros a control remoto.`;
+document.querySelectorAll("[data-wa]").forEach(el=>{
+  if (el.tagName === "A"){ el.href = waLink(GEN); el.target = "_blank"; el.rel = "noopener"; }
+});
+document.querySelectorAll("a[data-ask]").forEach(el=>{
+  const m = MODELOS.find(x=>x.id===el.dataset.ask);
+  el.href = waLink(`Hola, tengo una pregunta sobre el carro ${m.nombre} (REF. ${m.ref}).`);
+  el.target = "_blank"; el.rel = "noopener";
+});
+function go(url){ const a = document.createElement("a"); a.href = url; a.target = "_blank"; a.rel = "noopener"; document.body.appendChild(a); a.click(); a.remove(); }
+document.addEventListener("click", e=>{
+  const f = e.target.closest("button[data-wa]");
+  if (f){ go(waLink(GEN)); return; }
+  const o = e.target.closest("[data-order]");
+  if (o){ openOrder(o.dataset.order); return; }
+  const z = e.target.closest("[data-zoom]");
+  if (z){ $("#lb-vid").hidden = true; $("#lb-img").hidden = false; $("#lb-img").src = z.src; $("#lb-img").alt = z.alt; $("#lb").hidden = false; return; }
+  const vb = e.target.closest("[data-video]");
+  if (vb){ const m = MODELOS.find(x=>x.id===vb.dataset.video); const v = $("#lb-vid");
+    $("#lb-img").hidden = true; v.hidden = false; v.poster = m.poster; v.src = m.video; v.muted = false; $("#lb").hidden = false;
+    v.play().catch(()=>{ v.muted = true; v.play().catch(()=>{}); }); return; }
+  if (e.target.closest("#lb") && !e.target.closest("video")) closeLb();
+});
+
+/* ============ order sheet ============ */
+let current = null;
+function openOrder(id){
+  current = MODELOS.find(m=>m.id===id);
+  $("#o-img").src = current.img; $("#o-name").textContent = current.nombre;
+  $("#o-ref").textContent = `REF. ${current.ref} · Escala ${current.escala}`;
+  $("#o-qty").value = 1; $("#o-err").hidden = true; $("#o-ship").textContent = CONFIG.envio;
+  updateTotal(); $("#sheet").hidden = false; document.body.style.overflow = "hidden";
+  setTimeout(()=>$("#o-name-in").focus(), 50);
+}
+function closeOrder(){ $("#sheet").hidden = true; document.body.style.overflow = ""; }
+function qty(){ return Math.min(20, Math.max(1, parseInt($("#o-qty").value)||1)); }
+function updateTotal(){ $("#o-total").textContent = current && current.precio ? cop(current.precio*qty()) : "Te lo confirmamos"; }
+$("#q-minus").onclick = ()=>{ $("#o-qty").value = Math.max(1, qty()-1); updateTotal(); };
+$("#q-plus").onclick  = ()=>{ $("#o-qty").value = Math.min(20, qty()+1); updateTotal(); };
+$("#o-qty").oninput = updateTotal;
+$("#sheet-x").onclick = closeOrder;
+$("#sheet").addEventListener("click", e=>{ if (e.target.id==="sheet") closeOrder(); });
+function closeLb(){ const v = $("#lb-vid"); v.pause(); v.removeAttribute("src"); v.load(); $("#lb").hidden = true; }
+document.addEventListener("keydown", e=>{ if (e.key==="Escape"){ closeOrder(); closeLb(); } });
+
+$("#order").addEventListener("submit", e=>{
+  e.preventDefault();
+  const v = id => $(id).value.trim();
+  if (!v("#o-name-in") || !v("#o-city") || !v("#o-addr")){ $("#o-err").hidden = false; return; }
+  const q = qty(), m = current;
+  const lines = [
+    `🏎️ *NUEVO PEDIDO – ${CONFIG.marca}*`,
+    ``,
+    `*Producto:* Carro ${m.nombre} (REF. ${m.ref}, escala ${m.escala})`,
+    `*Cantidad:* ${q}`,
+    m.precio ? `*Total productos:* ${cop(m.precio*q)}` : null,
+    `*Forma de pago:* ${$("#o-pay").value}`,
+    ``,
+    `*Nombre:* ${v("#o-name-in")}`,
+    `*Ciudad:* ${v("#o-city")}`,
+    v("#o-hood") ? `*Barrio:* ${v("#o-hood")}` : null,
+    `*Dirección:* ${v("#o-addr")}`,
+    v("#o-note") ? `*Nota:* ${v("#o-note")}` : null,
+    ``,
+    `Quedo atento(a) a la confirmación y al valor del envío. ¡Gracias!`
+  ].filter(l=>l!==null).join("\n");
+  go(waLink(lines));
+  closeOrder();
+});
+
+/* ============ countdown ============ */
+const target = new Date(CONFIG.navidad).getTime();
+const pad = n => String(n).padStart(2,"0");
+function tick(){
+  let d = Math.max(0, target - Date.now());
+  const days = Math.floor(d/864e5); d%=864e5;
+  const h = Math.floor(d/36e5); d%=36e5;
+  const m = Math.floor(d/6e4); const s = Math.floor((d%6e4)/1e3);
+  $("#cd-d").textContent = days; $("#cd-h").textContent = pad(h); $("#cd-m").textContent = pad(m); $("#cd-s").textContent = pad(s);
+  $("#strip-days").textContent = days;
+}
+tick(); setInterval(tick, 1000);
+$("#yr").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
