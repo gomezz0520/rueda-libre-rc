@@ -6,8 +6,9 @@
 - [ ] **Reseñas:** cuando lleguen los primeros clientes, juntar capturas o fotos con el carro → sección de testimonios.
 
 ## Publicación
-- [ ] Crear el repositorio en GitHub y subir el código.
-- [ ] Conectar el repositorio en Vercel y publicar.
+- [x] Crear el repositorio en GitHub y subir el código.
+- [x] Conectar el repositorio en Vercel.
+- [ ] Confirmar que el enlace de Vercel muestra la página completa (fotos, videos, botones).
 - [ ] Poner el enlace de la página en la bio de Instagram y TikTok (@rueda_libre_rc).
 - [ ] Hacer un pedido de prueba desde el celular y revisar que llegue completo al WhatsApp.
 
