@@ -95,12 +95,20 @@ header .btn{font-size:16px;padding:10px 16px}
 .hero-panel video{display:block;border-radius:12px;width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}
 .tap-play{position:absolute;inset:0;margin:auto;width:68px;height:68px;border-radius:50%;border:0;background:rgba(255,75,20,.92);color:#fff;font-size:24px;cursor:pointer;display:none;box-shadow:0 10px 30px -8px rgba(0,0,0,.7)}
 .is-paused .tap-play{display:block}
+.dots{position:absolute;right:22px;bottom:22px;display:flex;gap:6px}
+.dots button{width:30px;height:30px;padding:0;border:0;background:none;cursor:pointer;display:grid;place-items:center}
+.dots button::before{content:"";width:9px;height:9px;border-radius:50%;background:rgba(255,255,255,.55);box-shadow:0 0 0 1px rgba(0,0,0,.3);transition:width .25s}
+.dots button[aria-selected="true"]::before{width:22px;border-radius:6px;background:var(--heat)}
+.hero-bar{position:absolute;left:14px;right:14px;bottom:14px;height:3px;background:rgba(255,255,255,.25);border-radius:0 0 12px 12px;overflow:hidden}
+.hero-bar i{display:block;height:100%;width:0;background:var(--heat)}
+.hero-swap video{animation:swap .45s ease}
+@keyframes swap{from{opacity:.2}to{opacity:1}}
 .live{position:absolute;left:26px;top:24px;background:rgba(0,0,0,.6);color:#fff;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:6px}
 .hero-tag{position:absolute;right:-6px;top:-14px;background:var(--heat);color:#fff;font-family:var(--f-display);font-weight:900;font-size:22px;text-transform:uppercase;padding:8px 14px;border-radius:8px;transform:rotate(4deg);box-shadow:0 10px 20px -8px rgba(0,0,0,.6)}
 .hero-spec{position:absolute;left:-8px;bottom:-22px;background:var(--asphalt);border:1px solid var(--line);border-radius:12px;padding:10px 14px;display:flex;gap:16px}
 .hero-spec div{font-family:var(--f-mono);font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.08em}
 .hero-spec b{display:block;font-family:var(--f-display);font-size:24px;color:var(--ink);letter-spacing:0}
-@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-block:28px 64px;gap:34px}.hero-stage{margin:10px 6px 4px;order:-1}.hero-panel{transform:rotate(-1.2deg);padding:8px}.live{left:16px;top:16px}.hero-spec{bottom:-18px}.hero-spec b{font-size:20px}}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-block:28px 64px;gap:34px}.hero-stage{margin:10px 6px 4px;order:-1}.hero-panel{transform:rotate(-1.2deg);padding:8px}.live{left:16px;top:16px;font-size:9.5px;letter-spacing:.03em}.dots{right:12px;bottom:12px}.hero-tag{font-size:18px}.hero-bar{left:8px;right:8px;bottom:8px}.hero-spec{bottom:-18px}.hero-spec b{font-size:20px}}
 
 /* sections */
 section{padding-block:72px}
@@ -308,9 +316,9 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--heat-2);border-c
     </div>
   </div>
   <div class="hero-stage">
-    <div class="hero-panel"><video class="auto" src="video/drift.mp4" poster="video/drift.jpg" autoplay muted loop playsinline preload="auto" aria-label="Video del carro Drift S814 andando"></video><button class="tap-play" type="button" aria-label="Reproducir video">▶</button><span class="live">● Grabado en Medellín</span></div>
-    <div class="hero-tag">¡Derrapa!</div>
-    <div class="hero-spec">
+    <div class="hero-panel"><video class="auto" id="hero-vid" src="video/drift.mp4" poster="video/drift.jpg" autoplay muted playsinline preload="auto" aria-label="Video del carro Drift S814 andando"></video><button class="tap-play" type="button" aria-label="Reproducir video">▶</button><span class="live" id="hero-live">● Drift · Grabado en Medellín</span><div class="dots" id="hero-dots" role="tablist" aria-label="Elegir video"></div><div class="hero-bar"><i id="hero-prog"></i></div></div>
+    <div class="hero-tag" id="hero-tag">¡Derrapa!</div>
+    <div class="hero-spec" id="hero-spec">
       <div><b>4x4</b>Tracción</div>
       <div><b>1:20</b>Escala</div>
       <div><b>LED</b>Luces</div>
@@ -593,6 +601,33 @@ if ("IntersectionObserver" in window){
 ["touchstart","pointerdown","scroll","keydown"].forEach(ev=>window.addEventListener(ev, ()=>visible.forEach(v=>{ if (v.paused) tryPlay(v); }), {passive:true}));
 const heroBtn = document.querySelector(".tap-play");
 if (heroBtn) heroBtn.addEventListener("click", ()=>tryPlay(document.querySelector(".hero-panel video")));
+
+/* ============ portada: rota entre los 3 videos ============ */
+const HERO = [
+  { id:"drift", tag:"¡Derrapa!",           spec:[["4x4","Tracción"],["1:20","Escala"],["LED","Luces"]] },
+  { id:"mini",  tag:"¡Con app!",  spec:[["App","Control"],["1:64","Escala"],["30 min","Duración"]] },
+  { id:"land",  tag:"¡Todoterreno!",       spec:[["7.4 V","Batería"],["1:16","Escala"],["30 m","Alcance"]] }
+];
+let heroIdx = 0;
+const hv = $("#hero-vid");
+$("#hero-dots").innerHTML = HERO.map((h,i)=>{ const m = MODELOS.find(x=>x.id===h.id);
+  return `<button type="button" role="tab" aria-label="Ver ${m.nombre}" aria-selected="${i===0}" data-hero="${i}"></button>`; }).join("");
+function showHero(i){
+  heroIdx = (i + HERO.length) % HERO.length;
+  const h = HERO[heroIdx], m = MODELOS.find(x=>x.id===h.id);
+  hv.poster = m.poster; hv.src = m.video; hv.setAttribute("aria-label", `Video del carro ${m.nombre} REF. ${m.ref} andando`);
+  $("#hero-live").textContent = `● ${m.nombre} · Grabado en Medellín`;
+  $("#hero-tag").textContent = h.tag;
+  $("#hero-spec").innerHTML = h.spec.map(s=>`<div><b>${s[0]}</b>${s[1]}</div>`).join("");
+  document.querySelectorAll("#hero-dots button").forEach((b,k)=>b.setAttribute("aria-selected", k===heroIdx));
+  const panel = hv.parentElement; panel.classList.remove("hero-swap"); void panel.offsetWidth; panel.classList.add("hero-swap");
+  tryPlay(hv);
+}
+hv.addEventListener("ended", ()=>showHero(heroIdx + 1));
+hv.addEventListener("timeupdate", ()=>{ if (hv.duration) $("#hero-prog").style.width = (hv.currentTime / hv.duration * 100) + "%"; });
+$("#hero-dots").addEventListener("click", e=>{ const b = e.target.closest("[data-hero]"); if (b) showHero(+b.dataset.hero); });
+// precargar los siguientes videos para que el cambio sea inmediato
+hv.addEventListener("canplaythrough", ()=>HERO.slice(1).forEach(h=>{ const l = document.createElement("link"); l.rel = "preload"; l.as = "video"; l.href = MODELOS.find(x=>x.id===h.id).video; document.head.appendChild(l); }), {once:true});
 
 /* ============ comparison table ============ */
 const yes = v => v ? `<span class="yes">Sí</span>` : `<span class="no">No</span>`;
