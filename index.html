@@ -93,12 +93,14 @@ header .btn{font-size:16px;padding:10px 16px}
 .hero-panel{background:linear-gradient(135deg,var(--chrome),var(--chrome-2));border-radius:20px;padding:14px;transform:rotate(-2deg);box-shadow:0 40px 80px -30px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.1)}
 .hero-panel{position:relative}
 .hero-panel video{display:block;border-radius:12px;width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}
+.tap-play{position:absolute;inset:0;margin:auto;width:68px;height:68px;border-radius:50%;border:0;background:rgba(255,75,20,.92);color:#fff;font-size:24px;cursor:pointer;display:none;box-shadow:0 10px 30px -8px rgba(0,0,0,.7)}
+.is-paused .tap-play{display:block}
 .live{position:absolute;left:26px;top:24px;background:rgba(0,0,0,.6);color:#fff;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:5px 9px;border-radius:6px}
 .hero-tag{position:absolute;right:-6px;top:-14px;background:var(--heat);color:#fff;font-family:var(--f-display);font-weight:900;font-size:22px;text-transform:uppercase;padding:8px 14px;border-radius:8px;transform:rotate(4deg);box-shadow:0 10px 20px -8px rgba(0,0,0,.6)}
 .hero-spec{position:absolute;left:-8px;bottom:-22px;background:var(--asphalt);border:1px solid var(--line);border-radius:12px;padding:10px 14px;display:flex;gap:16px}
 .hero-spec div{font-family:var(--f-mono);font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.08em}
 .hero-spec b{display:block;font-family:var(--f-display);font-size:24px;color:var(--ink);letter-spacing:0}
-@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-block:36px 64px}.hero-stage{margin:10px 6px 20px}}
+@media (max-width:860px){.hero .wrap{grid-template-columns:1fr;padding-block:28px 64px;gap:34px}.hero-stage{margin:10px 6px 4px;order:-1}.hero-panel{transform:rotate(-1.2deg);padding:8px}.live{left:16px;top:16px}.hero-spec{bottom:-18px}.hero-spec b{font-size:20px}}
 
 /* sections */
 section{padding-block:72px}
@@ -170,6 +172,8 @@ tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
 .reel video{width:100%;height:100%;object-fit:cover;display:block}
 .reel span{position:absolute;left:0;right:0;bottom:0;padding:28px 14px 12px;background:linear-gradient(transparent,rgba(0,0,0,.8));display:flex;justify-content:space-between;align-items:end;gap:10px}
 .reel b{font-family:var(--f-display);font-size:26px;font-style:italic;text-transform:uppercase;line-height:1}
+.reel::after{content:"▶";position:absolute;inset:0;margin:auto;width:60px;height:60px;border-radius:50%;background:rgba(255,75,20,.92);color:#fff;display:none;place-items:center;font-size:20px}
+.reel.is-paused::after{display:grid}
 .reel small{font-size:12px;font-weight:700;background:var(--heat);color:#fff;padding:5px 9px;border-radius:999px;white-space:nowrap}
 
 /* social */
@@ -304,7 +308,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--heat-2);border-c
     </div>
   </div>
   <div class="hero-stage">
-    <div class="hero-panel"><video src="video/drift.mp4" poster="video/drift.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Video del carro Drift S814 andando"></video><span class="live">● Grabado en Medellín</span></div>
+    <div class="hero-panel"><video class="auto" src="video/drift.mp4" poster="video/drift.jpg" autoplay muted loop playsinline preload="auto" aria-label="Video del carro Drift S814 andando"></video><button class="tap-play" type="button" aria-label="Reproducir video">▶</button><span class="live">● Grabado en Medellín</span></div>
     <div class="hero-tag">¡Derrapa!</div>
     <div class="hero-spec">
       <div><b>4x4</b>Tracción</div>
@@ -457,7 +461,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid var(--heat-2);border-c
   </div>
 </div>
 
-<div class="lb" id="lb" hidden><button class="lb-x" type="button" aria-label="Cerrar">×</button><img id="lb-img" alt=""><video id="lb-vid" controls playsinline hidden></video></div>
+<div class="lb" id="lb" hidden><button class="lb-x" type="button" aria-label="Cerrar">×</button><img id="lb-img" alt=""><video id="lb-vid" controls muted loop playsinline hidden></video></div>
 
 <!-- ICONS -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -566,13 +570,29 @@ $("#grid").innerHTML = MODELOS.map(m => `
 
 /* ============ reels ============ */
 $("#reels").innerHTML = MODELOS.map(m=>`<button class="reel" type="button" data-video="${m.id}" aria-label="Ver video del ${m.nombre}">
-  <video src="${m.video}" poster="${m.poster}" muted loop playsinline preload="none"></video>
-  <span><b>${m.nombre}</b><small>▶ Ver con sonido</small></span></button>`).join("");
-// reproducir en silencio cuando el video está en pantalla
+  <video src="${m.video}" poster="${m.poster}" muted autoplay loop playsinline preload="metadata"></video>
+  <span><b>${m.nombre}</b><small>▶ Míralo en acción</small></span></button>`).join("");
+/* Autoplay en celular: los videos deben estar silenciados como propiedad (no solo atributo).
+   Si el celular lo bloquea (ahorro de batería / ahorro de datos), arrancan con el primer toque
+   o desplazamiento, y mientras tanto muestran un botón de play. */
+const autoVids = [...document.querySelectorAll(".hero-panel video, .reel video")];
+const visible = new Set();
+function tryPlay(v){ v.muted = true; v.defaultMuted = true; v.playsInline = true; const p = v.play(); if (p) p.catch(()=>{}); }
+autoVids.forEach(v=>{
+  v.muted = true; v.defaultMuted = true; v.setAttribute("muted",""); v.setAttribute("playsinline","");
+  const box = v.parentElement;
+  box.classList.add("is-paused");
+  v.addEventListener("playing", ()=>box.classList.remove("is-paused"));
+  v.addEventListener("pause", ()=>box.classList.add("is-paused"));
+});
 if ("IntersectionObserver" in window){
-  const io = new IntersectionObserver(es=>es.forEach(en=>{ const v = en.target; en.isIntersecting ? v.play().catch(()=>{}) : v.pause(); }),{threshold:.4});
-  document.querySelectorAll(".reel video").forEach(v=>io.observe(v));
-}
+  const io = new IntersectionObserver(es=>es.forEach(en=>{ const v = en.target;
+    if (en.isIntersecting){ visible.add(v); tryPlay(v); } else { visible.delete(v); v.pause(); } }),{threshold:.35});
+  autoVids.forEach(v=>io.observe(v));
+} else autoVids.forEach(tryPlay);
+["touchstart","pointerdown","scroll","keydown"].forEach(ev=>window.addEventListener(ev, ()=>visible.forEach(v=>{ if (v.paused) tryPlay(v); }), {passive:true}));
+const heroBtn = document.querySelector(".tap-play");
+if (heroBtn) heroBtn.addEventListener("click", ()=>tryPlay(document.querySelector(".hero-panel video")));
 
 /* ============ comparison table ============ */
 const yes = v => v ? `<span class="yes">Sí</span>` : `<span class="no">No</span>`;
@@ -612,8 +632,7 @@ document.addEventListener("click", e=>{
   if (z){ $("#lb-vid").hidden = true; $("#lb-img").hidden = false; $("#lb-img").src = z.src; $("#lb-img").alt = z.alt; $("#lb").hidden = false; return; }
   const vb = e.target.closest("[data-video]");
   if (vb){ const m = MODELOS.find(x=>x.id===vb.dataset.video); const v = $("#lb-vid");
-    $("#lb-img").hidden = true; v.hidden = false; v.poster = m.poster; v.src = m.video; v.muted = false; $("#lb").hidden = false;
-    v.play().catch(()=>{ v.muted = true; v.play().catch(()=>{}); }); return; }
+    $("#lb-img").hidden = true; v.hidden = false; v.poster = m.poster; v.src = m.video; $("#lb").hidden = false; tryPlay(v); return; }
   if (e.target.closest("#lb") && !e.target.closest("video")) closeLb();
 });
 
