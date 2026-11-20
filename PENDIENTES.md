@@ -8,9 +8,9 @@
 ## Publicación
 - [x] Crear el repositorio en GitHub y subir el código.
 - [x] Conectar el repositorio en Vercel.
-- [ ] Confirmar que el enlace de Vercel muestra la página completa (fotos, videos, botones).
+- [x] Confirmar que el enlace de Vercel muestra la página completa (fotos, videos, botones).
 - [ ] Poner el enlace de la página en la bio de Instagram y TikTok (@rueda_libre_rc).
-- [ ] Hacer un pedido de prueba desde el celular y revisar que llegue completo al WhatsApp.
+- [x] Revisar la página en el celular (videos, rotación de portada y pedido).
 
 ## Opcional / más adelante
 - [ ] Dominio propio (ej. ruedalibrerc.com) conectado en Vercel.
@@ -21,3 +21,4 @@
 - [x] Página con los 3 modelos, fichas, precios con descuento y pedido directo por WhatsApp.
 - [x] Nombre: Rueda Libre RC. Asesores: Andrés, Sebastián y Wilson Gómez.
 - [x] Fotos y videos reales de los 3 carros.
+- [x] Videos automáticos en celular y portada que rota entre los 3 carros.
