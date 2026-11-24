@@ -1,5 +1,13 @@
 # Pendientes – Rueda Libre RC
 
+## Publicidad (con @la_tienda_deanto)
+- [x] Creativos: 4 videos 9:16, posts 1:1 y 4:5, historias 9:16 y carrusel (carpeta `creativos/`).
+- [x] 2 diseños editables en Canva (carpeta "Rueda Libre RC - Publicidad Navidad").
+- [ ] Canva: borrar el texto sobrante "X1X1X1X1" de la historia y cambiar los carros generados por las fotos reales.
+- [ ] Colores: ¿el Mini Drift viene en azul y blanco? ¿La Land Cruiser en gris y plateado?
+- [ ] Imágenes con IA (Higgsfield): la cuenta tiene 0 créditos; cada imagen cuesta 2 créditos.
+- [ ] Ponerle música a los videos al publicarlos en TikTok/Instagram.
+
 ## Por definir (del negocio)
 - [ ] **Envío:** ¿se cobra aparte o va incluido en el precio? Si va incluido → poner "Envío gratis" en grande.
 - [ ] **Garantía:** ¿hay garantía? ¿De cuántos días? → agregar a preguntas frecuentes.
