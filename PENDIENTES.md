@@ -22,7 +22,8 @@
 
 ## Opcional / más adelante
 - [ ] Dominio propio (ej. ruedalibrerc.com) conectado en Vercel.
-- [ ] Logo definitivo (hoy es un ícono provisional).
+- [x] Logo definitivo (monograma RL, carpeta `marca/`), puesto en la página y como ícono de la pestaña.
+- [ ] Poner la foto de perfil en Instagram, TikTok, Facebook y WhatsApp.
 - [ ] Más fotos por modelo (atrás, de lado, la caja) para hacer galería.
 
 ## Hecho
