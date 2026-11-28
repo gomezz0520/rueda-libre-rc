@@ -8,6 +8,14 @@
 - [ ] Imágenes con IA (Higgsfield): la cuenta tiene 0 créditos; cada imagen cuesta 2 créditos.
 - [ ] Ponerle música a los videos al publicarlos en TikTok/Instagram.
 
+## Pauta en Meta (cuenta "Rueda Libre RC - Anuncios")
+- [x] Cuenta conectada (COP, America/Bogota).
+- [x] Campaña "RLRC | Navidad 2026 | Tráfico a la página" (id 120250975718420266) creada EN PAUSA: $18.978/día, Colombia 25-50, hasta el 22-dic.
+- [x] 3 anuncios: video Mini Drift, video los 3 carros 27 s, carrusel 5 tarjetas.
+- [ ] Aprobar y activar la campaña.
+- [ ] Vincular Instagram @rueda_libre_rc a la página de Facebook (hoy los anuncios en IG salen con el nombre de la página).
+- [ ] (Opcional) Instalar el píxel de Meta en la página para medir clics a WhatsApp.
+
 ## Por definir (del negocio)
 - [ ] **Envío:** ¿se cobra aparte o va incluido en el precio? Si va incluido → poner "Envío gratis" en grande.
 - [ ] **Garantía:** ¿hay garantía? ¿De cuántos días? → agregar a preguntas frecuentes.
